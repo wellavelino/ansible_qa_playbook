@@ -5,6 +5,7 @@ function InstallDotFiles() {
     sudo -v
 
     chmod a+x install/*.sh
+    cd install
 
     # Keep-alive: update existing `sudo` time stamp until the script has finished
     while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
@@ -22,13 +23,13 @@ function InstallDotFiles() {
         fi
         if [ $ARG == "brew" ] || [ $ARG == "all" ]; then
             # Run the brew.sh Script
-            # For a full listing of installed formulae and apps, refer to
+            # For a full listing of installed formula and apps, refer to
             # the commented brew.sh source file directly and tweak it to
             # suit your needs.
             echo ""
             echo "------------------------------"
             echo "Installing Homebrew along with some common formulae and apps."
-            echo "This might awhile to complete, as some formulae need to be installed from source."
+            echo "This might awhile to complete, as some formula need to be installed from source."
             echo "------------------------------"
             echo ""
             ./brew.sh
@@ -58,7 +59,7 @@ function InstallDotFiles() {
     done
 
     echo "------------------------------"
-    echo "Completed running .dots, restart your computer to ensure all updates take effect"
+    echo "Completed running .Trex Dotfiles, restart your computer to ensure all updates take effect"
     echo "------------------------------"
 }
 

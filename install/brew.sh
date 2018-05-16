@@ -1,7 +1,11 @@
-if ! is-macos -o ! is-executable ruby -o ! is-executable curl -o ! is-executable git; then
-echo "Skipped: Homebrew (missing: ruby, curl and/or git)"
-return
-fi
+#!/usr/bin/env bash
+
+# Install command-line tools using Homebrew.
+
+# Ask for the administrator password upfront.
+sudo -v
+
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 if test ! $(which brew); then
   echo "Installing homebrew..."
@@ -35,6 +39,5 @@ grep -q "$LINE" ~/.bash_profile || echo "$LINE" >> ~/.bash_profile
 export DOTFILES_BREW_PREFIX_COREUTILS=`brew --prefix coreutils`
 set-config "DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_CACHE"
 
-ln -sfv "$DOTFILES_DIR/etc/mackup/.mackup.cfg"
 
 brew cleanup

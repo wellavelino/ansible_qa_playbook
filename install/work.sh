@@ -13,4 +13,7 @@ brew install caskroom/cask/brew-cask
 #dev
 brew cask install iterm2
 
-brew cask install spotify
+brew cask install --appdir="/Applications" spotify
+brew cask install --appdir="/Applications" google-chrome
+brew cask install --appdir="/Applications" franz
+brew cask install --appdir="/Applications" caskroom/cask/intellij-idea-ce

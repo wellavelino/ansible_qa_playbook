@@ -23,11 +23,7 @@ Xcode manually.
 Execute the installation file
 
 ````
-# give execution permition to the file
-chmod a+x installation.sh
-
-
-./installation.sh
+./installation.sh args
 
 ````
 

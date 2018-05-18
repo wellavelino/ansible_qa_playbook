@@ -2,7 +2,7 @@
 
 #### The repository name is a analogy to a popular speach "Short Arm" like a Trex.
 
-This [article](https://codingcraft.com.br/2016/09/23/o-famigerado-t-rex-profissional)(Portuguese) written by @leonel explain a little bit about that.
+This [article](https://codingcraft.com.br/2016/09/23/o-famigerado-t-rex-profissional)(Portuguese) written by @cigano explain a little bit about that.
 
 
 # Those scripts only work with MacOS

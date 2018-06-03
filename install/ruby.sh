@@ -10,3 +10,5 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
 rbenv install 2.4.0
+
+rbenv global 2.4.0

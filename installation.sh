@@ -41,6 +41,13 @@ function InstallDotFiles() {
             echo "------------------------------"
             ./android.sh
         fi
+          if [ $ARG == "Ruby" ] || [ $ARG == "all" ]; then
+            # Run the ruby.sh Script
+            echo "------------------------------"
+            echo "Setting up ruby development environment."
+            echo "------------------------------"
+            ./ruby.sh
+        fi
         if [ $ARG == "QA" ] || [ $ARG == "all" ]; then
             # Run the qa.sh Script
             echo "------------------------------"

@@ -13,8 +13,25 @@ brew cask install java8
 # Android SDK and tools
 
 brew install gradle
-brew install android-sdk
-brew install android-ndk
+brew cask install --appdir="/Applications" android-studio
+brew cask install android-sdk
 
-android update sdk --no-ui
 
+
+ANDROID_HOME="/Users/wellingtonavelino/Library/Android/sdk"
+
+# Setting Android home 
+echo "export ANDROID_HOME=$ANDROID_HOME" >> ~/.bash_profile
+echo "export PATH+=:$ANDROID_HOME/tools"  >> ~/.bash_profile
+echo "export PATH+=:$ANDROID_HOME/platform-tools/"  >> ~/.bash_profile
+echo "export PATH+=:$ANDROID_HOME/lib/"  >> ~/.bash_profile
+echo "export PATH+=:$ANDROID_HOME/emulator/"  >> ~/.bash_profile
+echo "export PATH+=:$ANDROID_HOME/tools/lib"   >> ~/.bash_profile
+
+
+#Setting Java Home
+echo "export $(/usr/bin/env java -XshowSettings:properties -version 2>&1 | grep "java.home" | sed -e 's/java.home/JAVA_HOME/;s/ //g;')" >> ~/.bash_profile
+
+
+# Reloading the bash_profile
+source ~/.bash_profile

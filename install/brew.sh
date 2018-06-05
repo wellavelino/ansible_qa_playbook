@@ -19,8 +19,7 @@ brew upgrade
 # Install packages
 
 apps=(
-bash-completion2
-git-completion
+bash-completion
 git
 git-extras
 nano
@@ -35,6 +34,20 @@ brew install "${apps[@]}"
 
 LINE='eval "$(rbenv init -)"'
 grep -q "$LINE" ~/.bash_profile || echo "$LINE" >> ~/.bash_profile
+BASH_C='[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion'
+grep -q "$BASH_C" ~/.bash_profile || echo "$BASH_C" >> ~/.bash_profile
+PROMPT='if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
+    source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
+  fi'
+grep -q "$PROMPT" ~/.bash_profile || echo "$PROMPT" >> ~/.bash_profile
+
+cp ../git/.gitconfig  ~/.gitconfig
+source ~/.gitconfig
+
+cp  ../git/.gitignore_global ~/.gitignore_global
+source ~/.gitignore_global
+
 
 export DOTFILES_BREW_PREFIX_COREUTILS=`brew --prefix coreutils`
 set-config "DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_CACHE"

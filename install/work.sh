@@ -11,8 +11,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 brew install caskroom/cask/brew-cask
 
 #dev
-brew cask install iterm2
-
+brew cask install --appdir="/Applications" iterm2
 brew cask install --appdir="/Applications" spotify
 brew cask install --appdir="/Applications" google-chrome
 brew cask install --appdir="/Applications" franz

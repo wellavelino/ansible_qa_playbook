@@ -12,6 +12,11 @@ gems=(
     pry
     appium_lib
     appium_console
+    rubocop
+    rake
+    rspec
+    cucumber
+    nokogiri
 )
 
 gem install "${gems[@]}"

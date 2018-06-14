@@ -17,6 +17,7 @@ gems=(
     rspec
     cucumber
     nokogiri
+    bundler
 )
 
 gem install "${gems[@]}"

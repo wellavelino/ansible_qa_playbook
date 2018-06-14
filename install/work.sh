@@ -16,3 +16,7 @@ brew cask install --appdir="/Applications" spotify
 brew cask install --appdir="/Applications" google-chrome
 brew cask install --appdir="/Applications" franz
 brew cask install --appdir="/Applications" caskroom/cask/intellij-idea-ce
+
+# checkout my emacs configuration
+cd ~/.emacs.d && git clone https://github.com/wellavelino/emacs_configuration.git
+cp -R custom/ ~/.emacs.d

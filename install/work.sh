@@ -14,7 +14,8 @@ brew install caskroom/cask/brew-cask
 brew cask install --appdir="/Applications" iterm2
 brew cask install --appdir="/Applications" spotify
 brew cask install --appdir="/Applications" google-chrome
-brew cask install --appdir="/Applications" franz
+# This application needs to be verified 
+# brew cask install --appdir="/Applications" franz
 brew cask install --appdir="/Applications" caskroom/cask/intellij-idea-ce
 
 # checkout my emacs configuration

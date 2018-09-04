@@ -18,7 +18,10 @@ brew cask install android-sdk
 
 
 
-ANDROID_HOME="/Users/wellingtonavelino/Library/Android/sdk"
+ANDROID_HOME="/Users/yourdirectory/Library/Android/sdk"
+
+# example
+# ANDROID_HOME="/Users/wellington/Library/Android/sdk"
 
 # Setting Android home 
 echo "export ANDROID_HOME=$ANDROID_HOME" >> ~/.bash_profile

@@ -1,6 +1,6 @@
 [user]
   name = Wellington Avelino
-  email = wellington.avelino@outlook.com
+  email = #add your email here.
 
 [github]
   user = wellavelino
@@ -15,9 +15,6 @@
 
 [alias]
   amend = commit --amend --reuse-message=HEAD
-  br = branch
-  ci = commit
-  co = checkout
   contrib = shortlog --summary --numbered
   cr = clone --recursive
   df = diff --word-diff
@@ -27,9 +24,6 @@
   ll = log --pretty=oneline --graph --abbrev-commit
   lm = log --pretty=format:'* %s (%h)'
   patch = !git --no-pager diff --no-color
-  p = push
-  pf = push --force
-  st = status
   stl = ls-files -m -o --exclude-standard
   sts = status -sb
   unstage = reset --hard HEAD

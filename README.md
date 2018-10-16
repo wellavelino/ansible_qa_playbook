@@ -27,3 +27,14 @@ Execute the installation file
 
 ````
 
+
+# Next steps
+
+- Add configuration to the casks installations
+- Reorganize the git setup
+- Add ssh to git
+- Improve Xcode installation 
+- Add some Mac configuration
+  - Delete unseless mac apps
+  - Configure the enviroenment 
+

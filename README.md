@@ -37,4 +37,5 @@ Execute the installation file
 - Add some Mac configuration
   - Delete unseless mac apps
   - Configure the enviroenment 
+- Configure and install maven  
 

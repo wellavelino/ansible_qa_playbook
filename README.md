@@ -7,6 +7,16 @@ This [article](https://codingcraft.com.br/2016/09/23/o-famigerado-t-rex-profissi
 
 # Those scripts only work with MacOS
 
+
+## Scripts avalible
+
+* Android environment
+* QA tools
+* Ruby and Rbenv
+* Default utilities
+* Java 
+
+
 ## Usage
 
 Clone this repository
@@ -15,17 +25,34 @@ Clone this repository
 https://github.com/wellavelino/dot_trex_files.git
 ```
 
-I don't find a solution to install Xcode using the command line, because that, you need to install
+### Configuration
+
+You have to add your current user to the /install/android.sh file to install and create properly the
+dependencies.
+
+```
+# example
+# ANDROID_HOME="/Users/yourCurrentUser/Library/Android/sdk"
+```
+
+### Execute the installation file
+
+Example:
+
+````
+./installation.sh all (for all configuration)
+
+````
+
+or 
+
+````
+./installation.sh android (for a specific configuration)
+````
+
+# Note
+I didn't found a solution to install Xcode using the command line so, you have to install
 Xcode manually.
-
-
-
-Execute the installation file
-
-````
-./installation.sh args
-
-````
 
 
 # Next steps
@@ -37,5 +64,5 @@ Execute the installation file
 - Add some Mac configuration
   - Delete unseless mac apps
   - Configure the enviroenment 
-- Configure and install maven  
+- Configure and install maven
 

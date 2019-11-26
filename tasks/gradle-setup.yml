@@ -1,0 +1,19 @@
+---
+- name: Ansible check if gradle is installed.
+  stat:
+    path: .gradle/
+  register: my_folder
+    
+- name: Create gradle directory if it doesnt existis
+  file:
+    path: .gradle/
+    state: directory
+    mode: 0755
+  when: my_folder.stat.exists == false
+  
+- name: Copy default gradle properties to Android hosts
+  copy:
+    src: ./scripts/gradle.properties
+    dest: ~/.gradle/
+    mode: '0644'
+    backup: yes

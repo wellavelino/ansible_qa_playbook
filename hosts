@@ -1,0 +1,8 @@
+[android]
+ip hosts
+
+[ios]
+ip hosts
+
+[all:vars]
+ansible_user=[your user]

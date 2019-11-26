@@ -1,0 +1,14 @@
+---
+- name: Find out playbook's path
+  shell: pwd
+  register: playbook_path
+  
+- name: copy git dotfiles files to remote
+  copy:
+    src: 'scripts/git/.{{ item }}'
+    dest: '~/.{{ item }}'
+    mode: 777
+  with_items:
+  - gitconfig
+  - gitignore_global
+

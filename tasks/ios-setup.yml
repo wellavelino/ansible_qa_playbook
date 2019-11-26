@@ -1,0 +1,19 @@
+---  
+- name: Set AppDeveloper credentials on keyChain using fastlane
+  expect:
+    command: bash -lc "fastlane fastlane-credentials add --username '{{ apple_id }}'"
+    responses:
+      'Password:': '{{ apple_password }}'
+    
+    # Don't expose your password in logs ;)
+  no_log: true
+
+- name: Install desired xcode version using xcode-install gem
+  expect:
+    command: bash -lc "xcversion install '{{ xcode_version }}'"
+    responses:
+      'Username:': '{{ apple_id }}'
+      'Password \(for your@email.com\):': '{{ apple_password }}' #find a solution to parse dynamically
+      'Password:': '{{ machine_pass }}'
+    timeout: 1800
+  no_log: true

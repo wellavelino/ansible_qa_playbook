@@ -1,0 +1,104 @@
+---
+- name: get the username running the deploy
+  shell: 'whoami'
+  register: username_on_the_host
+
+- name: Find out playbook's path
+  shell: pwd
+  register: playbook_path  
+
+- name: Create SDK  directory if it does not exist
+  file:
+    path: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk
+    state: directory
+    mode: '0777'
+  register: android_home
+  
+- name: copy Android bash script to remote
+  copy:
+    src: ./scripts/android.sh
+    dest: '{{ playbook_path.stdout }}/android.sh'
+    mode: '777'
+  
+- name: Run and configure Bash Profile.
+  shell: ./android.sh
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Delete copied script for bash configuration
+  command:  bash -c "rm -rf '{{ playbook_path.stdout }}/android.sh'"  
+
+- name: Download Android-SDK
+  get_url: 
+    url: https://dl.google.com/android/repository/sdk-tools-darwin-4333796.zip
+    dest: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk
+    force: yes
+    mode: 777
+  retries: 2
+ 
+- name: Decompress Android-SDK
+  unarchive: 
+    src: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk/sdk-tools-darwin-4333796.zip
+    dest: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk
+    force: yes
+    mode: 0777
+    remote_src: yes
+  ignore_errors: yes
+
+- name: Check whether adb command exists
+  stat: path="/Users/{{username_on_the_host.stdout}}/Library/Android/sdk/platform-tools/adb"
+  register: stat_adb_command
+  changed_when: no
+  
+- block:
+  - name: Ensure a directory for licenses
+    become: yes
+    file:
+      path: "{{ android_home }}/licenses"
+      state: 'directory'
+  - name: Copy license files
+    copy:
+      src: "{{ android_license_src_dir }}"
+      dest: "{{ android_home }}/licenses"
+    when: android_license_src_dir is defined
+  become: yes
+  when: (not stat_adb_command.stat.exists)
+  
+- name: Check repositories.cfg
+  stat:
+    path: "/Users/{{ username_on_the_host.stdout }}/.android/repositories.cfg"
+  register: stat_repositories_cfg
+  changed_when: no
+- block:
+  - name: Create .android directory
+    file:
+      path: "/Users/{{ username_on_the_host.stdout }}/.android"
+      state: directory
+  - name: Create repositories.cfg
+    file:
+      path: "/Users/{{ username_on_the_host.stdout }}/.android/repositories.cfg"
+      state: touch
+  when: not stat_repositories_cfg.stat.exists
+  
+- name: Install platform tool
+  expect:
+    command: "/Users/{{username_on_the_host.stdout}}/Library/Android/sdk/tools/bin/sdkmanager platform-tools"
+    responses:
+       'Accept? (y/N):': '{{ android_accept_license }}'
+  when: not stat_adb_command.stat.exists
+
+- name: Android SDK | Install sdk-versions
+  shell: 'yes | sdkmanager  "platforms;{{ item }}"'
+  loop: "{{ android_sdk_versions }}"
+  changed_when: false
+
+- name: Android SDK | Install system-images
+  shell: 'yes | sdkmanager --install "{{ item }}"'
+  loop: "{{ android_sdk_system_images }}"
+  changed_when: false
+
+- name: Android SDK | Create emulators
+  command: 'avdmanager create avd -n {{ item.name }} -k "{{ item.image }}" -c {{ item.sdcard }} --device "{{ item.skin }}" --force'
+  loop: "{{ android_sdk_emulators }}"
+  changed_when: false  

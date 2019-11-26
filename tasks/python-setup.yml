@@ -1,0 +1,29 @@
+---
+- name: get the username running the deploy
+  shell: 'whoami'
+  register: username
+  
+- name: Check if latest Python is already installed
+  stat:
+    path: '/Users/{{ username.stdout }}/.pyenv/versions/{{ item }}'
+  with_items: "{{ python_version }}"
+  register: python_check
+
+- name: Install default python version
+  shell:  bash -lc "pyenv install {{ item }}"
+  args:
+    executable: /bin/bash
+  changed_when: false
+  with_items: "{{ python_version }}"
+  when: "{{item.stat.exists == False}}"
+  with_items: '{{ python_check.results }}'
+  
+- name: Set global python version
+  shell:  bash -lc "pyenv global 3.7.3"
+  
+- name: Reload terminal session before starting another installation
+  shell:  source ~/.bash_profile
+  
+- name: install pexpect using pip
+  pip:
+    name: pexpect

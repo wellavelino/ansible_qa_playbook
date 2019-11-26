@@ -1,0 +1,13 @@
+---
+- name: Find out playbook's path
+  shell: pwd
+  register: playbook_path
+  
+- name: Copy Xcode Command Line Tools Script
+  copy: src=./scripts/clitools.sh dest=/tmp/clitools.sh
+
+- name: Install Xcode Command Line Tools
+  command: bash -c "sh /tmp/clitools.sh"
+
+- name: Delete copied Scripts for CLI tools
+  command: bash -c "rm -rf /tmp/clitools.sh"

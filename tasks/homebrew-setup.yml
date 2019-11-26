@@ -1,0 +1,67 @@
+---
+- name: Find out playbook's path
+  shell: pwd
+  register: playbook_path
+  
+- name: Check if Homebrew is already installed
+  stat:
+    path: /usr/local/bin/brew
+  register: "homebrew_check"
+
+- name: Installing Homebrew
+  command: 'bash /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+  when: >
+    not homebrew_check.stat.exists and
+    install_homebrew_if_missing
+
+- name: Updating Homebrew
+  homebrew:
+    update_homebrew: no
+    upgrade_all: no
+  when: homebrew_check.stat.exists
+
+- name: Untaping formulas
+  shell: brew untap '{{ item }}'
+  with_items: '{{ brew_taps }}'
+  ignore_errors: yes
+  
+- name: Tapping necessary taps
+  homebrew_tap:
+   name: '{{ item }}'
+  with_items: '{{ brew_taps }}'
+  ignore_errors: yes
+
+  # actually there's a bug on the java cask
+  # we will need to prompt the passwork manually
+  # in order to workaround it
+- name: Installing Homebrew Cask Packages
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ brew_cask_packages }}"
+  when: homebrew_check.stat.exists
+  ignore_errors: yes
+
+- name: Copy Java configuration script to remote
+  copy:
+    src: ./scripts/java.sh
+    dest: '{{ playbook_path.stdout }}/java.sh'
+    mode: '777'
+  
+- name: Set Java Home Before installing brew packages
+  shell: ./java.sh
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Delete copied script for Java configuration
+  command:  bash -c "rm -rf '{{ playbook_path.stdout }}/java.sh'"
+
+- name: Installing Homebrew Packages
+  homebrew:
+    name: "{{ brew_packages }}"
+    state: present
+    upgrade_all: "{{ upgrade_homebrew_packages }}"
+  with_items: "{{ brew_packages }}"
+  when: homebrew_check.stat.exists
+  ignore_errors: yes

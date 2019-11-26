@@ -1,0 +1,43 @@
+---
+- name: get the username running the deploy
+  shell: 'whoami'
+  register: username
+
+- name: Check if latest Ruby is already installed
+  stat:
+    path: '/Users/{{ username.stdout }}/.rbenv/versions/{{ item }}'
+  with_items: "{{ ruby_version }}"
+  register: ruby_check
+
+- name: Install ruby.
+  shell: bash -lc "rbenv install {{ item }}"
+  args:
+    executable: /bin/bash
+  changed_when: false
+  with_items: "{{ ruby_version }}"
+  when: "{{item.stat.exists == False}}"
+  with_items: '{{ ruby_check.results }}'
+  
+- name: Make ruby version global.
+  shell: bash -lc "rbenv global {{ item }}"
+  args:
+    executable: /bin/bash
+  changed_when: false
+  with_items: "{{ ruby_version }}"
+ 
+- name: Update System gems
+  shell: bash -lc "gem update --system"
+   
+- name: Execute clean up after installing new gems
+  shell: bash -lc "gem cleanup"
+  
+- name: Install Bundler gem
+  shell: bash -lc "gem install bundler"
+ 
+- name: Install xcode-install gem
+  shell: bash -lc "gem install xcode-install"
+  
+- name: Install fastlane gem
+  shell: bash -lc "gem install fastlane"
+  
+

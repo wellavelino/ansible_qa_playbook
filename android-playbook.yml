@@ -1,0 +1,24 @@
+---
+- name: Install Android tools on MACOS
+  hosts: '{{ host }}'
+  
+  vars_files:
+    - default.config.yml
+   
+  tasks:    
+    - include: tasks/homebrew-setup.yml
+     
+    - include: tasks/bash-setup.yml
+
+    - include: tasks/git-setup.yml
+
+    - include: tasks/ruby-setup.yml
+
+    - include: tasks/python-setup.yml  
+
+    - include: tasks/android-setup.yml
+
+    - include: tasks/gradle-setup.yml
+      
+    - include: tasks/macos_defaults.yml     
+  

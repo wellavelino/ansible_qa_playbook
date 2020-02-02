@@ -57,6 +57,25 @@ platform playbook could be android-playbook.yml or ios-playbook.yml
 ansible-playbook {platform-playbook.yml} -i hosts -l localhost"
 ```
 
+If you would like you can make use of tags to run specifically tasks e.g
+
+```
+- name: check bash already configured
+  stat:
+    path: ~/.bash_profile
+  register: "bash_profile"
+  tags:
+  - configuration
+
+```
+
+you could run it like
+
+```
+ansible-playbook {platform-playbook.yml} -i hosts -l localhost --tags "configuration"
+```
+
+
 # Next steps
 
 - Cron jobs

@@ -1,9 +1,7 @@
 ---
 brew_cask_packages:
   - 'google-chrome'
-  - 'sublime-text'
   - 'caffeine'
-  - 'ngrok'
   - 'adoptopenjdk8'
   - 'android-studio'
   - 'android-sdk'
@@ -30,7 +28,7 @@ android_sdk_versions:
 android_sdk_system_images: 
 # Example:
 # - system-images;android-28;google_apis;x86
-  - system-images;android-22;google_apis;x86
+  - system-images;android-28;google_apis;x86
 
 # Example:
 # - name: API_28
@@ -38,13 +36,8 @@ android_sdk_system_images:
 #   skin: Nexus 5X
 #   sdcard: 1024M  
 android_sdk_emulators:
-- name: TEST_AUTOMATION_EMULATOR_1
-  image: system-images;android-22;google_apis;x86
-  skin: Nexus 5X
-  sdcard: 1024M
-    
-- name: TEST_AUTOMATION_EMULATOR_2
-  image: system-images;android-22;google_apis;x86
+- name: emulator_api_28
+  image: system-images;android-28;google_apis;x86
   skin: Nexus 5X
   sdcard: 1024M
 
@@ -69,7 +62,7 @@ macos_animation_options:
 macos_software_autoupdates:
   - softwareupdate --schedule off
 
-xcode_version: 11.2.1
+xcode_version: 11.3
 
 apple_id: []
 apple_password: []

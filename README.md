@@ -42,6 +42,13 @@ If you already have Pyton and pip installed on your machine just run the command
 pip install --user ansible
 ```
 
+## Configuration
+You have to add your current user to the /scrips/android.sh file to install and create properly the dependencies.
+
+Open default.config.yml and add or remove your cask/brew packages.
+Also change the desired xcode version to install and Android system images.
+
+
 ## Running it locally 
 
 ```

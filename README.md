@@ -97,3 +97,5 @@ ansible-playbook {platform-playbook.yml} -i hosts -l localhost --tags "configura
 
 - Cron jobs
 - Health check 
+- Add more macOS configuration
+- 2FA login on apple store 

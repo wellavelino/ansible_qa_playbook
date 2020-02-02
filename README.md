@@ -1,7 +1,12 @@
 # ANSIBLE QA PLAYBOOK
 
 The repository name is a analogy to a popular speach "Short Arm" like a Trex.
-This article(Portuguese) written by @cigano explain a little bit about that.
+
+Why waste time with configuration when you just need to do it once?
+I hate waste my time doing repetitive stuff, so if you need to keep CI machines up and running with latest versions
+you need to change machines constantly this is what you need!
+
+I would say that the best feature is to update xcode just by running command line :)
 
 How does it works?
 
@@ -47,6 +52,18 @@ You have to add your current user to the /scrips/android.sh file to install and 
 
 Open default.config.yml and add or remove your cask/brew packages.
 Also change the desired xcode version to install and Android system images.
+
+In that same file you need to update the following variables:
+
+the downside is that if your account has 2FA enabled it might won't work, if would like, submit a issue and i'll see to implement it.
+
+
+```
+apple_id: your apple id
+apple_password: your password
+
+```
+
 
 
 ## Running it locally 

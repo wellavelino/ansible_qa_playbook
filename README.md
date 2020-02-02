@@ -1,70 +1,56 @@
-# UNDER UPDATE
+# ANSIBLE QA PLAYBOOK
 
-# Dot Trex Files
+The repository name is a analogy to a popular speach "Short Arm" like a Trex.
+This article(Portuguese) written by @cigano explain a little bit about that.
 
-#### The repository name is a analogy to a popular speach "Short Arm" like a Trex.
-
-This [article](https://codingcraft.com.br/2016/09/23/o-famigerado-t-rex-profissional)(Portuguese) written by @cigano explain a little bit about that.
-
-
-# Those scripts only work with MacOS
+How does it works?
 
 
-## Scripts avalible
+## Necessary manual steps
 
-* Android environment
-* QA tools
-* Ruby and Rbenv
-* Default utilities
-* Java 
+- git SSH key configuration
+- Java installation you'll be asked for the machine password
+- Manually change your apple_id on ios-setup.yml given some limitations with Pexpect 
+  ```
+   'Password \(for your email here\):'
+  ```
+   
+## Ansible Cheat Sheet:
+
+
+ - -i means inventory, it tells ansible that we would like to use our inventory to load hosts
+ -  -e means extra-vars, it tells ansible that we're sending extra vars to be used
+ - -l selects sub-module for hosts 
 
 
 ## Usage
-
-Clone this repository
-
-```
-https://github.com/wellavelino/dot_trex_files.git
-```
-
-### Configuration
-
-You have to add your current user to the /install/android.sh file to install and create properly the
-dependencies.
+Clone this repository 
 
 ```
-# example
-# ANDROID_HOME="/Users/yourCurrentUser/Library/Android/sdk"
+git@github.com:wellavelino/ansible_qa_playbook.git
 ```
 
-### Execute the installation file
+Ansible documentation 
 
-Example:
+```
+https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-pip
+```
 
-````
-./installation.sh all (for all configuration)
+If you already have Pyton and pip installed on your machine just run the command below:
 
-````
+```
+pip install --user ansible
+```
 
-or 
+## Running it locally 
 
-````
-./installation.sh android (for a specific configuration)
-````
+```
+platform playbook could be android-playbook.yml or ios-playbook.yml
 
-# Note
-I didn't found a solution to install Xcode using the command line so, you have to install
-Xcode manually.
-
+ansible-playbook {platform-playbook.yml} -i hosts -l localhost"
+```
 
 # Next steps
 
-- Add configuration to the casks installations
-- Reorganize the git setup
-- Add ssh to git
-- Improve Xcode installation 
-- Add some Mac configuration
-  - Delete unseless mac apps
-  - Configure the enviroenment 
-- Configure and install maven
-
+- Cron jobs
+- Health check 

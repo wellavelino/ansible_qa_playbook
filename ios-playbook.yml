@@ -1,6 +1,6 @@
 ---
 - name: Install iOS tools on MACOS
-  hosts: '{{ host }}'
+  hosts: ios,localhost
 
   vars_prompt:
 
@@ -26,3 +26,5 @@
     - include: tasks/xcode-clitools-setup.yml
 
     - include: tasks/ios-setup.yml
+
+    - include: tasks/emacs-setup.yml

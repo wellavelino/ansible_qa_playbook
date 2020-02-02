@@ -3,6 +3,8 @@
   stat:
     path: ~/.bash_profile
   register: "bash_profile"
+  tags:
+  - configuration
   
 - name: Find out playbook's path
   shell: pwd

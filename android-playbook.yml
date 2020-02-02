@@ -1,6 +1,6 @@
 ---
 - name: Install Android tools on MACOS
-  hosts: '{{ host }}'
+  hosts: android,localhost
   
   vars_files:
     - default.config.yml
@@ -22,3 +22,4 @@
       
     - include: tasks/macos_defaults.yml     
   
+    - include: tasks/emacs-setup.yml

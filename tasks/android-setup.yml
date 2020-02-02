@@ -2,10 +2,14 @@
 - name: get the username running the deploy
   shell: 'whoami'
   register: username_on_the_host
+  tags:
+  - android
 
 - name: Find out playbook's path
   shell: pwd
-  register: playbook_path  
+  register: playbook_path
+  tags:
+  - android
 
 - name: Create SDK  directory if it does not exist
   file:
@@ -13,22 +17,30 @@
     state: directory
     mode: '0777'
   register: android_home
+  tags:
+  - android
   
 - name: copy Android bash script to remote
   copy:
     src: ./scripts/android.sh
     dest: '{{ playbook_path.stdout }}/android.sh'
     mode: '777'
+  tags:
+  - android
   
 - name: Run and configure Bash Profile.
   shell: ./android.sh
   args:
     executable: /bin/bash
   changed_when: false
+  tags:
+  - android
 
 - name: Delete copied script for bash configuration
   command:  bash -c "rm -rf '{{ playbook_path.stdout }}/android.sh'"  
-
+  tags:
+  - android
+  
 - name: Download Android-SDK
   get_url: 
     url: https://dl.google.com/android/repository/sdk-tools-darwin-4333796.zip
@@ -36,7 +48,9 @@
     force: yes
     mode: 777
   retries: 2
- 
+  tags:
+  - android
+  
 - name: Decompress Android-SDK
   unarchive: 
     src: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk/sdk-tools-darwin-4333796.zip
@@ -45,11 +59,15 @@
     mode: 0777
     remote_src: yes
   ignore_errors: yes
+  tags:
+  - android
 
 - name: Check whether adb command exists
   stat: path="/Users/{{username_on_the_host.stdout}}/Library/Android/sdk/platform-tools/adb"
   register: stat_adb_command
   changed_when: no
+  tags:
+  - android
   
 - block:
   - name: Ensure a directory for licenses
@@ -64,6 +82,8 @@
     when: android_license_src_dir is defined
   become: yes
   when: (not stat_adb_command.stat.exists)
+  tags:
+  - android
   
 - name: Check repositories.cfg
   stat:
@@ -80,6 +100,8 @@
       path: "/Users/{{ username_on_the_host.stdout }}/.android/repositories.cfg"
       state: touch
   when: not stat_repositories_cfg.stat.exists
+  tags:
+  - android
   
 - name: Install platform tool
   expect:
@@ -87,18 +109,26 @@
     responses:
        'Accept? (y/N):': '{{ android_accept_license }}'
   when: not stat_adb_command.stat.exists
+  tags:
+  - android
 
 - name: Android SDK | Install sdk-versions
   shell: 'yes | sdkmanager  "platforms;{{ item }}"'
   loop: "{{ android_sdk_versions }}"
   changed_when: false
+  tags:
+  - android
 
 - name: Android SDK | Install system-images
   shell: 'yes | sdkmanager --install "{{ item }}"'
   loop: "{{ android_sdk_system_images }}"
   changed_when: false
+  tags:
+  - android
 
 - name: Android SDK | Create emulators
   command: 'avdmanager create avd -n {{ item.name }} -k "{{ item.image }}" -c {{ item.sdcard }} --device "{{ item.skin }}" --force'
   loop: "{{ android_sdk_emulators }}"
-  changed_when: false  
+  changed_when: false
+  tags:
+  - android

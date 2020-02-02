@@ -1,8 +1,11 @@
 [android]
-ip hosts
+10.30.2.42
 
 [ios]
 ip hosts
 
 [all:vars]
 ansible_user=[your user]
+
+[localhost]
+127.0.0.1 ansible_connection=local

@@ -17,6 +17,10 @@ brew_packages:
   - 'bash-git-prompt'
   - 'gradle'
   - 'pyenv'
+  - 'jq'
+  - 'htop'
+  - 'taskwarrior'
+  - 'ncdu'
 brew_taps:
   - 'homebrew/cask-versions'
   

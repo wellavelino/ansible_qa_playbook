@@ -1,0 +1,36 @@
+---
+- name: check zshrc already configured
+  stat:
+    path: ~/.zshrc
+  register: "zshrc"
+  tags:
+  - configuration
+
+- name: Install oh-my-zsh if not configured
+  command: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+  when: >
+    not configuration.stat.exists
+    
+- name: Find out playbook's path
+  shell: pwd
+  register: playbook_path
+
+- name: zshrc to remote
+  copy:
+    src: ./scripts/zshrc.sh
+    dest: '{{ playbook_path.stdout }}/zshrc.sh'
+    mode: '777'
+  when: (not zshrc.stat.exists)  
+  
+- name: Run and configure zshrc.
+  shell: ./zshrc.sh
+  args:
+    executable: /bin/bash
+  changed_when: false
+  when: (not zshrc.stat.exists)  
+    
+
+- name: Delete copied script for zshrc configuration
+  command:  bash -c "rm -rf '{{ playbook_path.stdout }}/zshrc.sh'"
+  when: (not zshrc.stat.exists)  
+

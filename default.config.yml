@@ -6,7 +6,6 @@ brew_cask_packages:
   - 'android-studio'
   - 'android-sdk'
 brew_packages:
-  - 'bash-completion'
   - 'git'
   - 'pyenv'
   - 'python3'

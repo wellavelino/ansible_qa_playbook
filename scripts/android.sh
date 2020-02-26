@@ -11,12 +11,12 @@ ANDROID_HOME="/Users/${USER}/Library/Android/sdk"
 # ANDROID_HOME="/Users/machineName/Library/Android/sdk"
 
 # Setting Android home 
-echo "export ANDROID_HOME=$ANDROID_HOME" >> ~/.bash_profile
-echo "export PATH+=:$ANDROID_HOME/tools"  >> ~/.bash_profile
-echo "export PATH+=:$ANDROID_HOME/platform-tools/"  >> ~/.bash_profile
-echo "export PATH+=:$ANDROID_HOME/lib/"  >> ~/.bash_profile
-echo "export PATH+=:$ANDROID_HOME/emulator/"  >> ~/.bash_profile
-echo "export PATH+=:$ANDROID_HOME/tools/lib"   >> ~/.bash_profile
+echo "export ANDROID_HOME=$ANDROID_HOME" >> ~/.zshrc
+export PATH="$PATH:$ANDROID_HOME/tools"  >> ~/.zshrc
+export PATH="$PATH:$ANDROID_HOME/platform-tools/"  >> ~/.zshrc
+export PATH="$PATH:$ANDROID_HOME/lib/"  >> ~/.zshrc
+export PATH="$PATH:$ANDROID_HOMEemulator/"  >> ~/.zshrc
+export PATH="$PATH:/$ANDROID_HOME/tools/lib"  >> ~/.zshrc
 
-# Reloading the bash_profile
-source ~/.bash_profile
+# Reloading the zshrc
+source ~/.zshrc

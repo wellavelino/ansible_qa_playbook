@@ -13,7 +13,7 @@
   tasks:
     - include: tasks/homebrew-setup.yml
      
-    - include: tasks/bash-setup.yml  
+    - include: tasks/zsh-setup.yml  
 
     - include: tasks/ruby-setup.yml    
      

@@ -5,6 +5,11 @@ brew_cask_packages:
   - 'adoptopenjdk8'
   - 'android-studio'
   - 'android-sdk'
+  - 'iterm2'
+  - 'emacs'
+  - 'postman'
+  - 'spotify'
+  - 'proxyman'
 brew_packages:
   - 'git'
   - 'pyenv'
@@ -18,8 +23,8 @@ brew_packages:
   - 'pyenv'
   - 'jq'
   - 'htop'
-  - 'taskwarrior'
   - 'ncdu'
+  - 'diff-so-fancy'
 brew_taps:
   - 'homebrew/cask-versions'
   
@@ -65,11 +70,11 @@ macos_animation_options:
 macos_software_autoupdates:
   - softwareupdate --schedule off
 
-xcode_version: 11.3
+xcode_version: 12.4
 
 apple_id: []
 apple_password: []
 
-ruby_version: 2.5.1
+ruby_version: 2.7.2
   
 python_version: 3.7.3

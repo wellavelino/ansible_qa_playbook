@@ -1,11 +1,11 @@
 #using https to avoid ssh configuration when installing on new machines
 - git:
     repo: 'https://github.com/wellavelino/emacs_configuration.git' 
-    dest: ~/code/emacs
+    dest: ~/Code/Personal/emacs
   tags:
   - configuration
  
 - name: Copy emacs setup to machine root
-  shell: cp -r ~/code/emacs/ ~/.emacs.d/
+  shell: cp -r ~/Code/Personal/emacs ~/.emacs.d/
   tags:
     - configuration

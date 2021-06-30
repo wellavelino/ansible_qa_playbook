@@ -13,7 +13,7 @@
 
 - name: Create SDK  directory if it does not exist
   file:
-    path: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk
+    path: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk/
     state: directory
     mode: '0777'
   register: android_home
@@ -24,11 +24,11 @@
   copy:
     src: ./scripts/android.sh
     dest: '{{ playbook_path.stdout }}/android.sh'
-    mode: '777'
+    mode: '0777'
   tags:
   - android
   
-- name: Run and configure Bash Profile.
+- name: Run and configure zshrc Profile.
   shell: ./android.sh
   args:
     executable: /bin/bash
@@ -46,19 +46,18 @@
     url: https://dl.google.com/android/repository/sdk-tools-darwin-4333796.zip
     dest: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk
     force: yes
-    mode: 777
+    mode: 0777
   retries: 2
   tags:
   - android
   
 - name: Decompress Android-SDK
-  unarchive: 
+  ansible.builtin.unarchive:
+    copy: no
     src: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk/sdk-tools-darwin-4333796.zip
-    dest: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk
-    force: yes
+    dest: /Users/{{username_on_the_host.stdout}}/Library/Android/sdk/
     mode: 0777
-    remote_src: yes
-  ignore_errors: yes
+  ignore_errors: no
   tags:
   - android
 

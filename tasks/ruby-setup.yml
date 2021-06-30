@@ -15,8 +15,7 @@
     executable: /bin/bash
   changed_when: false
   with_items: "{{ ruby_version }}"
-  when: "{{item.stat.exists == False}}"
-  with_items: '{{ ruby_check.results }}'
+  when: ruby_check.results.0.stat.exists == "False"
   
 - name: Make ruby version global.
   shell: bash -lc "rbenv global {{ item }}"
@@ -25,19 +24,18 @@
   changed_when: false
   with_items: "{{ ruby_version }}"
  
-- name: Update System gems
-  shell: bash -lc "gem update --system"
+- name: Update Installed Ruby version gems
+  shell: gem update
    
 - name: Execute clean up after installing new gems
   shell: bash -lc "gem cleanup"
   
 - name: Install Bundler gem
-  shell: bash -lc "gem install bundler"
+  shell: gem install bundler
  
 - name: Install xcode-install gem
-  shell: bash -lc "gem install xcode-install"
+  shell: gem install xcode-install
   
 - name: Install fastlane gem
-  shell: bash -lc "gem install fastlane"
-  
-
+  shell: gem install fastlane
+ 

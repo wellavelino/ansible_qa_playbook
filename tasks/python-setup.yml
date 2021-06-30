@@ -22,7 +22,7 @@
   shell:  bash -lc "pyenv global 3.7.3"
   
 - name: Reload terminal session before starting another installation
-  shell:  source ~/.bash_profile
+  shell:  source ~/.zshrc
   
 - name: install pexpect using pip
   pip:

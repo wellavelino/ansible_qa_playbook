@@ -1,3 +1,7 @@
+# This repository will be moved to brew soon in a different branch, for brew usaged checkout brewFormula branch
+
+
+
 # ANSIBLE QA PLAYBOOK
 
 The repository name is a analogy to a popular speach "Short Arm" like a Trex.
